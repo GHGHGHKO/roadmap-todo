@@ -1,4 +1,4 @@
-package com.feelsgoodfrog.roadmap_todo.common
+package com.feelsgoodfrog.roadmap_todo.common.entity
 
 import com.feelsgoodfrog.roadmap_todo.config.entity.JpaAuditConfig
 import jakarta.persistence.EntityListeners

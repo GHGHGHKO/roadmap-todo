@@ -1,6 +1,6 @@
 package com.feelsgoodfrog.roadmap_todo.domain.user.entity
 
-import com.feelsgoodfrog.roadmap_todo.common.BaseEntity
+import com.feelsgoodfrog.roadmap_todo.common.entity.BaseEntity
 import jakarta.persistence.*
 
 @SequenceGenerator(

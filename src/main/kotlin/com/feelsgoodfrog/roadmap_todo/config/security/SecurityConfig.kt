@@ -12,7 +12,7 @@ class SecurityConfig {
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         return http
             .authorizeHttpRequests {
-                it.requestMatchers("/register", "/login").permitAll()
+                it.requestMatchers("/register", "/login", "/auth/keys").permitAll()
                     .anyRequest().hasRole("USER")
             }
             .csrf { it.disable() }

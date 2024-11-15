@@ -1,16 +1,16 @@
 package com.feelsgoodfrog.roadmap_todo.common
 
+import com.feelsgoodfrog.roadmap_todo.config.entity.JpaAuditConfig
 import jakarta.persistence.EntityListeners
 import jakarta.persistence.MappedSuperclass
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener::class)
+@EntityListeners(JpaAuditConfig::class)
 class BaseEntity(
     @CreatedBy
     val createdBy: String = "",

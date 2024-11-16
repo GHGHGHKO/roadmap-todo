@@ -1,7 +1,7 @@
-package com.feelsgoodfrog.roadmap_todo.domain.security.controller
+package com.feelsgoodfrog.roadmap_todo.domain.auth.controller
 
 import com.feelsgoodfrog.roadmap_todo.common.security.RsaGenerator
-import com.feelsgoodfrog.roadmap_todo.domain.security.dto.KeysResponseDto
+import com.feelsgoodfrog.roadmap_todo.domain.auth.dto.KeysResponseDto
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController

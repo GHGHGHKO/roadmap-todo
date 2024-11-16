@@ -1,6 +1,6 @@
 package com.feelsgoodfrog.roadmap_todo.common.security
 
-import com.feelsgoodfrog.roadmap_todo.domain.security.dto.KeysResponseDto
+import com.feelsgoodfrog.roadmap_todo.domain.auth.dto.KeysResponseDto
 import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Component
 import java.security.KeyPairGenerator

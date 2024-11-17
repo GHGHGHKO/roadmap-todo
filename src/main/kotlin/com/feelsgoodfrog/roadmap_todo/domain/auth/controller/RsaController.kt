@@ -14,6 +14,6 @@ class RsaController(
 
     @GetMapping("/keys")
     fun keys(): KeysResponseDto {
-        return rsaGenerator.publicKey()
+        return rsaGenerator.publicKeyBody()
     }
 }

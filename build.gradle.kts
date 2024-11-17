@@ -22,8 +22,10 @@ repositories {
 }
 
 val kotlinLoggingJvm = "7.0.0"
+val jwt = "0.12.6"
 
 dependencies {
+	implementation("io.jsonwebtoken:jjwt-api:${jwt}")
 	implementation("io.github.oshai:kotlin-logging-jvm:${kotlinLoggingJvm}")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
@@ -33,6 +35,8 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	runtimeOnly("com.h2database:h2")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jwt}")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:${jwt}")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

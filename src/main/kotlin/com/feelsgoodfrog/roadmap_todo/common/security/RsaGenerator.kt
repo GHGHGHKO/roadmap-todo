@@ -3,28 +3,39 @@ package com.feelsgoodfrog.roadmap_todo.common.security
 import com.feelsgoodfrog.roadmap_todo.domain.auth.dto.KeysResponseDto
 import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Component
+import java.security.KeyPair
 import java.security.KeyPairGenerator
+import java.security.PrivateKey
+import java.security.PublicKey
 import java.util.*
 
 @Component
 class RsaGenerator {
-    lateinit var secretKey: String
+    lateinit var keyPair: KeyPair
 
     @PostConstruct
     fun init() {
         val keyGenerator = KeyPairGenerator.getInstance(KEY_INSTANCE)
         keyGenerator.initialize(2048)
-        val keyPair = keyGenerator.genKeyPair()
-        secretKey = Base64.getEncoder().encodeToString(keyPair.public.encoded)
+        keyPair = keyGenerator.genKeyPair()
     }
 
-    fun publicKey(): KeysResponseDto {
+    fun publicKeyBody(): KeysResponseDto {
+        val publicKey = Base64.getEncoder().encodeToString(keyPair.public.encoded)
         return KeysResponseDto(
             kty = KEY_INSTANCE,
             use = "sig",
             alg = "RS256",
-            n = secretKey
+            n = publicKey
         )
+    }
+
+    fun publicKey(): PublicKey {
+        return keyPair.public
+    }
+
+    fun privateKey(): PrivateKey {
+        return keyPair.private
     }
 
     companion object {

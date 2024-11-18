@@ -2,6 +2,8 @@ package com.feelsgoodfrog.roadmap_todo.common.security
 
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.Users
 import io.jsonwebtoken.Jwts
+import jakarta.servlet.http.HttpServletRequest
+import org.springframework.http.HttpHeaders
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -33,6 +35,10 @@ class JwtProvider(
             .verifyWith(publicKey)
             .build()
             .isSigned(jwt)
+    }
+
+    fun resolveToken(request: HttpServletRequest): String? {
+        return request.getHeader(HttpHeaders.AUTHORIZATION)
     }
 
     companion object {

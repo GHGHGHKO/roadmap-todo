@@ -1,6 +1,7 @@
 package com.feelsgoodfrog.roadmap_todo.common.security
 
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.Users
+import io.jsonwebtoken.JwtParser
 import io.jsonwebtoken.Jwts
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
@@ -30,15 +31,33 @@ class JwtProvider(
     }
 
     fun verify(jwt: String): Boolean {
-        val publicKey = rsaGenerator.publicKey()
-        return Jwts.parser()
-            .verifyWith(publicKey)
-            .build()
-            .isSigned(jwt)
+        return parser().isSigned(jwt)
     }
 
     fun resolveToken(request: HttpServletRequest): String? {
         return request.getHeader(HttpHeaders.AUTHORIZATION)
+    }
+
+    fun validateToken(jwt: String): Boolean {
+        return try {
+            val isVerify = verify(jwt)
+            val isJwtExpired = parser()
+                .parseSignedClaims(jwt)
+                .payload
+                .expiration
+                .after(Date())
+
+            isVerify && isJwtExpired
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    private fun parser(): JwtParser {
+        val publicKey = rsaGenerator.publicKey()
+        return Jwts.parser()
+            .verifyWith(publicKey)
+            .build()
     }
 
     companion object {

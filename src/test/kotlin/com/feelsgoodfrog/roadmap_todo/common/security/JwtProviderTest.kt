@@ -1,5 +1,6 @@
 package com.feelsgoodfrog.roadmap_todo.common.security
 
+import com.feelsgoodfrog.roadmap_todo.domain.user.entity.UserRoles
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.Users
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -20,8 +21,14 @@ class JwtProviderTest {
         val users = Users(
             userName = "test",
             email = "test@test.com",
-            password = "test",
+            userPassword = "test",
+            roles = mutableListOf()
         )
+        val userRole = UserRoles(
+            userId = users,
+            roles = "ROLE_USER"
+        )
+        users.roles.add(userRole)
         val jwt = jwtProvider.issue(users)
 
         // when

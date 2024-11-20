@@ -12,8 +12,10 @@ import jakarta.persistence.*
 class UserRoles(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserRolesSeqGenerator")
-    val id: Long,
+    val id: Long? = null,
 
     @ManyToOne(cascade = [(CascadeType.MERGE)])
-    val roles: Users
+    val userId: Users,
+
+    val roles: String
 ) : BaseEntity()

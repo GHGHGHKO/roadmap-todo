@@ -29,6 +29,6 @@ class UsersServiceTest {
         // then
         assertThat(result.userName).isEqualTo(signUp.userName)
         assertThat(result.email).isEqualTo(signUp.email)
-        assertThat(result.password).isNotEqualTo(signUp.password)
+        assertThat(result.userPassword).isNotEqualTo(signUp.password)
     }
 }

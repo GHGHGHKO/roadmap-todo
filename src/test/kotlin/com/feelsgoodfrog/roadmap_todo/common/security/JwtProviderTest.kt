@@ -26,8 +26,10 @@ class JwtProviderTest {
 
         // when
         val verify = jwtProvider.verify(jwt)
+        val validateToken = jwtProvider.validateToken(jwt)
 
         // then
         assertThat(verify)
+        assertThat(validateToken)
     }
 }

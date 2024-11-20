@@ -21,7 +21,7 @@ class JwtProviderTest {
     @BeforeEach
     fun setup() {
         val localUsers = Users(
-            userName = "test",
+            name = "test",
             email = "test@test.com",
             userPassword = "test",
             roles = mutableListOf()

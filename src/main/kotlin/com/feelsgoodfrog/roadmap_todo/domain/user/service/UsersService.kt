@@ -14,7 +14,7 @@ class UsersService(
 ) {
     fun signUp(dto: SignUpRequestDto): Users {
         val users = Users(
-            userName = dto.userName,
+            name = dto.name,
             email = dto.email,
             userPassword = passwordEncoder.encode(dto.password),
             roles = mutableListOf()

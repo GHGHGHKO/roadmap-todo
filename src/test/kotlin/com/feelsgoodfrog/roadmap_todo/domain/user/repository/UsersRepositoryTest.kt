@@ -20,7 +20,7 @@ class UsersRepositoryTest {
     @BeforeEach
     fun setup() {
         val localUsers = Users(
-            userName = "test",
+            name = "test",
             email = "test@test.com",
             userPassword = "test",
             roles = mutableListOf()
@@ -42,6 +42,6 @@ class UsersRepositoryTest {
         val result = usersRepository.save(users)
 
         // then
-        assertThat(result.userName).isEqualTo(expected)
+        assertThat(result.name).isEqualTo(expected)
     }
 }

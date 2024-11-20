@@ -12,7 +12,7 @@ class Users(
     @Id
     val id: String = UUID.randomUUID().toString(),
 
-    val userName: String,
+    val name: String,
 
     val email: String,
 

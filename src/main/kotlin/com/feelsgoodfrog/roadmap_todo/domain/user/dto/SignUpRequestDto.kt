@@ -10,7 +10,7 @@ data class SignUpRequestDto(
     val email: String,
 
     @field:Size(min = 1, max = 30, message = "username must be between 1 and 30")
-    val userName: String,
+    val name: String,
 
     @field:NotBlank
     @field:Size(min = 1, max = 30, message = "password must be between 1 and 30")

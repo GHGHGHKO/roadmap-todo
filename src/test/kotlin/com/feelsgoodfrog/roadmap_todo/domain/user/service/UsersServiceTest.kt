@@ -18,7 +18,7 @@ class UsersServiceTest {
     fun signUp() {
         // given
         val signUp = SignUpRequestDto(
-            userName = "test",
+            name = "test",
             email = "test@test.com",
             password = "superawes0me~"
         )
@@ -27,7 +27,7 @@ class UsersServiceTest {
         val result = usersService.signUp(signUp)
 
         // then
-        assertThat(result.userName).isEqualTo(signUp.userName)
+        assertThat(result.name).isEqualTo(signUp.name)
         assertThat(result.email).isEqualTo(signUp.email)
         assertThat(result.userPassword).isNotEqualTo(signUp.password)
     }

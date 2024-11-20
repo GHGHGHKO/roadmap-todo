@@ -1,6 +1,6 @@
 package com.feelsgoodfrog.roadmap_todo.domain.user.service
 
-import com.feelsgoodfrog.roadmap_todo.domain.user.dto.SignUpRequestDto
+import com.feelsgoodfrog.roadmap_todo.domain.user.dto.RegisterRequestDto
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.UserRoles
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.Users
 import com.feelsgoodfrog.roadmap_todo.domain.user.repository.UsersRepository
@@ -12,7 +12,7 @@ class UsersService(
     private val usersRepository: UsersRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
-    fun signUp(dto: SignUpRequestDto): Users {
+    fun register(dto: RegisterRequestDto): Users {
         val users = Users(
             name = dto.name,
             email = dto.email,

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size
 
-data class SignUpRequestDto(
+data class RegisterRequestDto(
     @field:Email
     @field:NotBlank
     val email: String,

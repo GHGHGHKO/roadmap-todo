@@ -1,6 +1,6 @@
 package com.feelsgoodfrog.roadmap_todo.domain.user.service
 
-import com.feelsgoodfrog.roadmap_todo.domain.user.dto.SignUpRequestDto
+import com.feelsgoodfrog.roadmap_todo.domain.user.dto.RegisterRequestDto
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,16 +15,16 @@ class UsersServiceTest {
     private lateinit var usersService: UsersService
 
     @Test
-    fun signUp() {
+    fun register() {
         // given
-        val signUp = SignUpRequestDto(
+        val signUp = RegisterRequestDto(
             name = "test",
             email = "test@test.com",
             password = "superawes0me~"
         )
 
         // when
-        val result = usersService.signUp(signUp)
+        val result = usersService.register(signUp)
 
         // then
         assertThat(result.name).isEqualTo(signUp.name)

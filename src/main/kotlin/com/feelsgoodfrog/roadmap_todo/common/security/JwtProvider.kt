@@ -5,12 +5,16 @@ import io.jsonwebtoken.JwtParser
 import io.jsonwebtoken.Jwts
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class JwtProvider(
-    private val rsaGenerator: RsaGenerator
+    private val rsaGenerator: RsaGenerator,
+    private val userDetailService: UserDetailsService
 ) {
 
     fun issue(users: Users): String {
@@ -51,6 +55,19 @@ class JwtProvider(
         } catch (e: Exception) {
             false
         }
+    }
+
+    fun userAuthentication(jwt: String): Authentication {
+        val primaryKey = userPrimaryKey(jwt)
+        val userDetails = userDetailService.loadUserByUsername(primaryKey)
+        return UsernamePasswordAuthenticationToken(userDetails, userDetails.password, userDetails.authorities)
+    }
+
+    private fun userPrimaryKey(jwt: String): String {
+        return parser()
+            .parseSignedClaims(jwt)
+            .payload
+            .subject
     }
 
     private fun parser(): JwtParser {

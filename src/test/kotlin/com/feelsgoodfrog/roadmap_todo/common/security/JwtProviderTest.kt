@@ -3,6 +3,7 @@ package com.feelsgoodfrog.roadmap_todo.common.security
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.UserRoles
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.Users
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -15,20 +16,27 @@ class JwtProviderTest {
     @Autowired
     private lateinit var jwtProvider: JwtProvider
 
-    @Test
-    fun issueTokenTest() {
-        // given
-        val users = Users(
+    private lateinit var users: Users
+
+    @BeforeEach
+    fun setup() {
+        val localUsers = Users(
             userName = "test",
             email = "test@test.com",
             userPassword = "test",
             roles = mutableListOf()
         )
         val userRole = UserRoles(
-            userId = users,
+            userId = localUsers,
             roles = "ROLE_USER"
         )
-        users.roles.add(userRole)
+        localUsers.roles.add(userRole)
+        users = localUsers
+    }
+
+    @Test
+    fun issueTokenTest() {
+        // given
         val jwt = jwtProvider.issue(users)
 
         // when

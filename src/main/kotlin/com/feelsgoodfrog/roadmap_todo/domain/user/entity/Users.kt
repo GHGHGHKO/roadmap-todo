@@ -14,6 +14,7 @@ class Users(
 
     val name: String,
 
+    @Column(unique = true, nullable = false)
     val email: String,
 
     val userPassword: String,

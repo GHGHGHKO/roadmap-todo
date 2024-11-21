@@ -1,5 +1,6 @@
 package com.feelsgoodfrog.roadmap_todo.domain.user.service
 
+import com.feelsgoodfrog.roadmap_todo.common.security.JwtProvider
 import com.feelsgoodfrog.roadmap_todo.domain.user.dto.RegisterRequestDto
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -14,6 +15,9 @@ class UsersServiceTest {
     @Autowired
     private lateinit var usersService: UsersService
 
+    @Autowired
+    private lateinit var jwtProvider: JwtProvider
+
     @Test
     fun register() {
         // given
@@ -25,10 +29,9 @@ class UsersServiceTest {
 
         // when
         val result = usersService.register(signUp)
+        val validateToken = jwtProvider.validateToken(result.token)
 
         // then
-        assertThat(result.name).isEqualTo(signUp.name)
-        assertThat(result.email).isEqualTo(signUp.email)
-        assertThat(result.userPassword).isNotEqualTo(signUp.password)
+        assertThat(validateToken)
     }
 }

@@ -1,5 +1,5 @@
 package com.feelsgoodfrog.roadmap_todo.domain.user.dto
 
-data class RegisterResponseDto(
+data class LoginResponseDto(
     val token: String,
 )

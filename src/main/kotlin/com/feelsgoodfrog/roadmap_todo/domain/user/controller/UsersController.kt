@@ -1,7 +1,7 @@
 package com.feelsgoodfrog.roadmap_todo.domain.user.controller
 
 import com.feelsgoodfrog.roadmap_todo.domain.user.dto.RegisterRequestDto
-import com.feelsgoodfrog.roadmap_todo.domain.user.dto.RegisterResponseDto
+import com.feelsgoodfrog.roadmap_todo.domain.user.dto.LoginResponseDto
 import com.feelsgoodfrog.roadmap_todo.domain.user.service.UsersService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,7 +16,7 @@ class UsersController(
     @PostMapping("/register")
     fun register(
         @RequestBody dto: RegisterRequestDto
-    ): ResponseEntity<RegisterResponseDto> {
+    ): ResponseEntity<LoginResponseDto> {
         return ResponseEntity.ok()
             .body(usersService.register(dto))
     }

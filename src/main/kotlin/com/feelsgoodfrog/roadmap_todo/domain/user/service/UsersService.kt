@@ -3,7 +3,7 @@ package com.feelsgoodfrog.roadmap_todo.domain.user.service
 import com.feelsgoodfrog.roadmap_todo.common.exception.UserExistsException
 import com.feelsgoodfrog.roadmap_todo.common.security.JwtProvider
 import com.feelsgoodfrog.roadmap_todo.domain.user.dto.RegisterRequestDto
-import com.feelsgoodfrog.roadmap_todo.domain.user.dto.RegisterResponseDto
+import com.feelsgoodfrog.roadmap_todo.domain.user.dto.LoginResponseDto
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.UserRoles
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.Users
 import com.feelsgoodfrog.roadmap_todo.domain.user.repository.UsersRepository
@@ -16,7 +16,7 @@ class UsersService(
     private val passwordEncoder: PasswordEncoder,
     private val jwtProvider: JwtProvider
 ) {
-    fun register(dto: RegisterRequestDto): RegisterResponseDto {
+    fun register(dto: RegisterRequestDto): LoginResponseDto {
         if (existsUsersByEmail(dto.email)) {
             throw UserExistsException("Already exists ${dto.email} email")
         }
@@ -32,7 +32,7 @@ class UsersService(
         )
         users.roles.add(userRole)
 
-        return RegisterResponseDto(
+        return LoginResponseDto(
             token = jwtProvider.issue(usersRepository.save(users))
         )
     }

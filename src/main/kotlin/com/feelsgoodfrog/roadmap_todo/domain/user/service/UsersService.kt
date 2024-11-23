@@ -1,7 +1,9 @@
 package com.feelsgoodfrog.roadmap_todo.domain.user.service
 
 import com.feelsgoodfrog.roadmap_todo.common.exception.UserExistsException
+import com.feelsgoodfrog.roadmap_todo.common.exception.UserNotFoundException
 import com.feelsgoodfrog.roadmap_todo.common.security.JwtProvider
+import com.feelsgoodfrog.roadmap_todo.domain.user.dto.LoginRequestDto
 import com.feelsgoodfrog.roadmap_todo.domain.user.dto.RegisterRequestDto
 import com.feelsgoodfrog.roadmap_todo.domain.user.dto.LoginResponseDto
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.UserRoles
@@ -34,6 +36,17 @@ class UsersService(
 
         return LoginResponseDto(
             token = jwtProvider.issue(usersRepository.save(users))
+        )
+    }
+
+    fun login(dto: LoginRequestDto): LoginResponseDto {
+        val user = usersRepository
+            .findByEmail(dto.email)
+            .filter { u -> passwordEncoder.matches(dto.password, u.userPassword) }
+            .orElseThrow{ UserNotFoundException("User ${dto.email} not found") }
+
+        return LoginResponseDto(
+            token = jwtProvider.issue(user)
         )
     }
 

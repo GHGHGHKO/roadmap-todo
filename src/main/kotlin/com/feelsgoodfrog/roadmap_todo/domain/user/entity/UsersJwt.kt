@@ -21,5 +21,5 @@ class UsersJwt(
     @Column(length = 1000)
     val jwt: String,
 
-    val expiredDate: LocalDateTime
+    val expirationDate: LocalDateTime
 ): BaseEntity()

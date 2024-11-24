@@ -14,6 +14,7 @@ import com.feelsgoodfrog.roadmap_todo.domain.user.repository.UsersJwtRepository
 import com.feelsgoodfrog.roadmap_todo.domain.user.repository.UsersRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class UsersService(
@@ -49,19 +50,24 @@ class UsersService(
     fun login(dto: LoginRequestDto): LoginResponseDto {
         val user = usersRepository
             .findByEmail(dto.email)
-            .filter { u -> passwordEncoder.matches(dto.password, u.userPassword) }
-            .orElseThrow{ UserNotFoundException("User ${dto.email} not found") }
+            .filter { passwordEncoder.matches(dto.password, it.userPassword) }
+            .orElseThrow { UserNotFoundException("User ${dto.email} not found") }
 
-        return LoginResponseDto(
-            token = jwtProvider.issue(user).jwt
-        )
+        val usersJwt = user.usersJwt
+            ?: return LoginResponseDto(token = jwtProvider.issue(user).jwt)
+
+        return if (usersJwt.expirationDate.isBefore(LocalDateTime.now())) {
+            LoginResponseDto(token = jwtProvider.issue(user).jwt)
+        } else {
+            LoginResponseDto(token = usersJwt.jwt)
+        }
     }
 
     fun saveJwt(users: Users, jwtDto: JwtIssuedDto) {
         val usersJwt = UsersJwt(
             userId = users,
             jwt = jwtDto.jwt,
-            expiredDate = jwtDto.expirationDate
+            expirationDate = jwtDto.expirationDate
         )
         usersJwtRepository.save(usersJwt)
     }

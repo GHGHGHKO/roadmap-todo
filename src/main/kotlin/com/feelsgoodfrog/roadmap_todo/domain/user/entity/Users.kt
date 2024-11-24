@@ -20,7 +20,10 @@ class Users(
     val userPassword: String,
 
     @OneToMany(mappedBy = "userId", cascade = [CascadeType.ALL])
-    val roles: MutableList<UserRoles>
+    val roles: MutableList<UserRoles>,
+
+    @OneToOne(mappedBy = "userId", cascade = [CascadeType.ALL])
+    val usersJwt: UsersJwt? = null
 ): BaseEntity(), UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return roles

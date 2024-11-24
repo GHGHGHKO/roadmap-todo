@@ -23,6 +23,7 @@ repositories {
 
 val kotlinLoggingJvm = "7.0.0"
 val jwt = "0.12.6"
+val p6spy = "1.10.0"
 
 dependencies {
 	implementation("io.jsonwebtoken:jjwt-api:${jwt}")
@@ -33,6 +34,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:${p6spy}")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	runtimeOnly("com.h2database:h2")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jwt}")

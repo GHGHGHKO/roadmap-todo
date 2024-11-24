@@ -17,21 +17,22 @@ class JwtProvider(
     private val userDetailService: UserDetailsService
 ) {
 
-    fun issue(users: Users): String {
+    fun issue(users: Users): JwtIssuedDto {
         val now = Date()
         val claims = Jwts.claims()
             .subject(users.id)
             .build()
         val expirationDate = Date(now.time + JWT_EXPIRATION)
         val privateKey = rsaGenerator.privateKey()
-
-        return Jwts.builder()
+        val jwt = Jwts.builder()
             .claims(claims)
             .issuer(ISSUER)
             .issuedAt(now)
             .expiration(expirationDate)
             .signWith(privateKey, Jwts.SIG.RS256)
             .compact()
+
+        return JwtIssuedDto(jwt, expirationDate)
     }
 
     fun verify(jwt: String): Boolean {

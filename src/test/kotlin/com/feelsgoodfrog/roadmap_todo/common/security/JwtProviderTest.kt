@@ -37,7 +37,7 @@ class JwtProviderTest {
     @Test
     fun issueTokenTest() {
         // given
-        val jwt = jwtProvider.issue(users)
+        val jwt = jwtProvider.issue(users).jwt
 
         // when
         val verify = jwtProvider.verify(jwt)

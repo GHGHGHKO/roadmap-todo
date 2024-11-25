@@ -5,7 +5,9 @@ import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosResponseDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.service.TodosService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -22,5 +24,14 @@ class TodosController(
     ): ResponseEntity<TodosResponseDto> {
         return ResponseEntity.ok()
                 .body(todosService.save(dto))
+    }
+
+    @PutMapping("/{id}")
+    fun update(
+            @PathVariable id: Long,
+            @Valid @RequestBody dto: TodosRequestDto
+    ): ResponseEntity<TodosResponseDto> {
+        return ResponseEntity.ok()
+                .body(todosService.update(id, dto))
     }
 }

@@ -4,7 +4,7 @@ import com.feelsgoodfrog.roadmap_todo.domain.user.entity.Users
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
-interface UsersRepository: JpaRepository<Users, UUID> {
+interface UsersRepository: JpaRepository<Users, String> {
 
     fun existsUsersByEmail(email: String): Boolean
 

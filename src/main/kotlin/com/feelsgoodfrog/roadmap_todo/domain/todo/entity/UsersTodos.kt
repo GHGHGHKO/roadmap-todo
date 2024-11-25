@@ -13,7 +13,7 @@ class UsersTodos(
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UsersTodosSeqGenerator")
-    val id: Long? = null,
+    val id: Long = 0,
 
     val title: String,
 

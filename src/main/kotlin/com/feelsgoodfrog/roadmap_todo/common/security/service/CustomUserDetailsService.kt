@@ -5,14 +5,13 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class CustomUserDetailsService(
     private val usersRepository: UsersRepository
 ): UserDetailsService {
-    override fun loadUserByUsername(username: String?): UserDetails {
-        return usersRepository.findById(UUID.fromString(username))
+    override fun loadUserByUsername(username: String): UserDetails {
+        return usersRepository.findById(username)
             .orElseThrow { UsernameNotFoundException("$username not found") }
     }
 }

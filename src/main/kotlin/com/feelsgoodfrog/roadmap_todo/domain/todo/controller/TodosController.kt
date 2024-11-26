@@ -5,6 +5,7 @@ import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosResponseDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.service.TodosService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -33,5 +34,12 @@ class TodosController(
     ): ResponseEntity<TodosResponseDto> {
         return ResponseEntity.ok()
                 .body(todosService.update(id, dto))
+    }
+
+    @DeleteMapping("/{id}")
+    fun delete(
+            @PathVariable id: Long
+    ): ResponseEntity<Unit> {
+        return ResponseEntity.noContent().build()
     }
 }

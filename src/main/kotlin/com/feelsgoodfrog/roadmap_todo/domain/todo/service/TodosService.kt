@@ -21,7 +21,7 @@ class TodosService(
     }
 
     fun save(dto: TodosRequestDto): TodosResponseDto {
-        val todo = todosRepository.save(
+        val todo = save(
                 UsersTodos(
                         title = dto.title,
                         description = dto.description

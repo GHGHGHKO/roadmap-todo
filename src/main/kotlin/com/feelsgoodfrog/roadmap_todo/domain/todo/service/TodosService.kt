@@ -39,8 +39,11 @@ class TodosService(
         )
     }
 
-    fun update(id: Long, dto: TodosRequestDto): TodosResponseDto {
+    fun update(id: Long, dto: TodosRequestDto, userId: String): TodosResponseDto {
         val todo = findById(id)
+        if (todo.user.id != userId) {
+            throw IllegalAccessException("Forbidden") // todo 403 ERROR
+        }
         todo.update(dto)
         save(todo)
         return TodosResponseDto(

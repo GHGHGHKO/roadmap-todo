@@ -34,8 +34,9 @@ class TodosController(
             @PathVariable id: Long,
             @Valid @RequestBody dto: TodosRequestDto
     ): ResponseEntity<TodosResponseDto> {
+        val userId = getCurrentUsername()
         return ResponseEntity.ok()
-                .body(todosService.update(id, dto))
+                .body(todosService.update(id, dto, userId))
     }
 
     @DeleteMapping("/{id}")

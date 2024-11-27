@@ -26,7 +26,7 @@ class UsersRepositoryTest {
             roles = mutableListOf()
         )
         val userRole = UserRoles(
-            userId = localUsers,
+            user = localUsers,
             roles = "ROLE_USER"
         )
         localUsers.roles.add(userRole)

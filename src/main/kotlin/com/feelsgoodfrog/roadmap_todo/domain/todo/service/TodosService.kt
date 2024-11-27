@@ -4,12 +4,14 @@ import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosRequestDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosResponseDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.entity.UsersTodos
 import com.feelsgoodfrog.roadmap_todo.domain.todo.repository.UsersTodosRepository
+import com.feelsgoodfrog.roadmap_todo.domain.user.service.UsersService
 import org.springframework.stereotype.Service
 import java.lang.IllegalArgumentException
 
 @Service
 class TodosService(
-        private val todosRepository: UsersTodosRepository
+        private val todosRepository: UsersTodosRepository,
+        private val usersService: UsersService
 ) {
     fun findById(id: Long): UsersTodos {
         return todosRepository.findById(id)
@@ -20,11 +22,13 @@ class TodosService(
         return todosRepository.save(usersTodos)
     }
 
-    fun save(dto: TodosRequestDto): TodosResponseDto {
+    fun save(dto: TodosRequestDto, userId: String): TodosResponseDto {
+        val user = usersService.findById(userId)
         val todo = save(
                 UsersTodos(
                         title = dto.title,
-                        description = dto.description
+                        description = dto.description,
+                        user = user
                 )
         )
 

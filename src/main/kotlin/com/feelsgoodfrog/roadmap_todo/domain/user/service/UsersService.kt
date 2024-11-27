@@ -34,7 +34,7 @@ class UsersService(
             roles = mutableListOf()
         )
         val userRole = UserRoles(
-            userId = users,
+            user = users,
             roles = "ROLE_USER"
         )
         users.roles.add(userRole)
@@ -65,7 +65,7 @@ class UsersService(
 
     fun saveJwt(users: Users, jwtDto: JwtIssuedDto) {
         val usersJwt = UsersJwt(
-            userId = users,
+            user = users,
             jwt = jwtDto.jwt,
             expirationDate = jwtDto.expirationDate
         )
@@ -74,5 +74,10 @@ class UsersService(
 
     fun existsUsersByEmail(email: String): Boolean {
         return usersRepository.existsUsersByEmail(email)
+    }
+
+    fun findById(id: String): Users {
+        return usersRepository.findById(id)
+                .orElseThrow { UserNotFoundException("User $id not found") }
     }
 }

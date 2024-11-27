@@ -16,7 +16,7 @@ class UsersJwt(
     val id: Long? = null,
 
     @OneToOne
-    val userId: Users,
+    val user: Users,
 
     @Column(length = 1000)
     val jwt: String,

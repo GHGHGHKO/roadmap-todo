@@ -1,5 +1,6 @@
 package com.feelsgoodfrog.roadmap_todo.domain.todo.controller
 
+import com.feelsgoodfrog.roadmap_todo.common.extensions.getCurrentUsername
 import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosRequestDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosResponseDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.service.TodosService
@@ -23,8 +24,9 @@ class TodosController(
     fun save(
             @Valid @RequestBody dto: TodosRequestDto
     ): ResponseEntity<TodosResponseDto> {
+        val userId = getCurrentUsername()
         return ResponseEntity.ok()
-                .body(todosService.save(dto))
+                .body(todosService.save(dto, userId))
     }
 
     @PutMapping("/{id}")

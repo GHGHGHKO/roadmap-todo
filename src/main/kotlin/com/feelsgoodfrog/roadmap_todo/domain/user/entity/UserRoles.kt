@@ -15,7 +15,7 @@ class UserRoles(
     val id: Long? = null,
 
     @ManyToOne(cascade = [(CascadeType.MERGE)])
-    val userId: Users,
+    val user: Users,
 
     val roles: String
 ) : BaseEntity()

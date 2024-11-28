@@ -41,9 +41,7 @@ class TodosService(
 
     fun update(id: Long, dto: TodosRequestDto, userId: String): TodosResponseDto {
         val todo = findById(id)
-        if (todo.user.id != userId) {
-            throw IllegalAccessException("Forbidden") // todo 403 ERROR
-        }
+        isValidUser(todo, userId)
         todo.update(dto)
         save(todo)
         return TodosResponseDto(
@@ -51,5 +49,17 @@ class TodosService(
                 title = todo.title,
                 description = todo.description
         )
+    }
+
+    fun delete(id: Long, userId: String) {
+        val todo = findById(id)
+        isValidUser(todo, userId)
+        todosRepository.deleteById(id)
+    }
+
+    private fun isValidUser(todo: UsersTodos, userId: String) {
+        if (todo.user.id != userId) {
+            throw IllegalAccessException("Forbidden") // todo 403 ERROR
+        }
     }
 }

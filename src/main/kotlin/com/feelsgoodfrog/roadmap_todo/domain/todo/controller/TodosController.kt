@@ -43,6 +43,8 @@ class TodosController(
     fun delete(
             @PathVariable id: Long
     ): ResponseEntity<Unit> {
+        val userId = getCurrentUsername()
+        todosService.delete(id, userId)
         return ResponseEntity.noContent().build()
     }
 }

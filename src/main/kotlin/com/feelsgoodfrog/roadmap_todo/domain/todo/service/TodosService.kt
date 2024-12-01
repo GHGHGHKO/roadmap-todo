@@ -5,6 +5,8 @@ import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosResponseDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.entity.UsersTodos
 import com.feelsgoodfrog.roadmap_todo.domain.todo.repository.UsersTodosRepository
 import com.feelsgoodfrog.roadmap_todo.domain.user.service.UsersService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import java.lang.IllegalArgumentException
 
@@ -55,6 +57,16 @@ class TodosService(
         val todo = findById(id)
         isValidUser(todo, userId)
         todosRepository.deleteById(id)
+    }
+
+    fun get(userId: String, pageable: Pageable): Page<TodosResponseDto> {
+        val user = usersService.findById(userId)
+        return todosRepository.findByUser(user, pageable)
+            .map { todos -> TodosResponseDto(
+                id = todos.id,
+                title = todos.title,
+                description = todos.description
+            ) }
     }
 
     private fun isValidUser(todo: UsersTodos, userId: String) {

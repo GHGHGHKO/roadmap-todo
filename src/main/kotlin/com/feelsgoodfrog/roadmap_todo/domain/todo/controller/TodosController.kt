@@ -5,8 +5,11 @@ import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosRequestDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosResponseDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.service.TodosService
 import jakarta.validation.Valid
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -19,6 +22,15 @@ import org.springframework.web.bind.annotation.RestController
 class TodosController(
         private val todosService: TodosService
 ) {
+
+    @GetMapping
+    fun get(
+        pageable: Pageable
+    ): ResponseEntity<Page<TodosResponseDto>> {
+        val userId = getCurrentUsername()
+        return ResponseEntity.ok()
+            .body(todosService.get(userId, pageable))
+    }
 
     @PostMapping
     fun save(

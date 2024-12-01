@@ -25,7 +25,7 @@ class UsersService(
 ) {
     fun register(dto: RegisterRequestDto): LoginResponseDto {
         if (existsUsersByEmail(dto.email)) {
-            throw UserExistsException("Already exists ${dto.email} email")
+            throw UserExistsException("Already exists ${dto.email} email") // todo BAD REQUEST
         }
         val users = Users(
             name = dto.name,
@@ -51,7 +51,7 @@ class UsersService(
         val user = usersRepository
             .findByEmail(dto.email)
             .filter { passwordEncoder.matches(dto.password, it.userPassword) }
-            .orElseThrow { UserNotFoundException("User ${dto.email} not found") }
+            .orElseThrow { UserNotFoundException("User ${dto.email} not found") } // todo BAD REQUEST
 
         val usersJwt = user.usersJwt
             ?: return LoginResponseDto(token = jwtProvider.issue(user).jwt)
@@ -78,6 +78,6 @@ class UsersService(
 
     fun findById(id: String): Users {
         return usersRepository.findById(id)
-                .orElseThrow { UserNotFoundException("User $id not found") }
+                .orElseThrow { UserNotFoundException("User $id not found") } // todo BAD REQUEST
     }
 }

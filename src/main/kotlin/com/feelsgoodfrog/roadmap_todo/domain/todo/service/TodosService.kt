@@ -15,7 +15,7 @@ class TodosService(
 ) {
     fun findById(id: Long): UsersTodos {
         return todosRepository.findById(id)
-                .orElseThrow { IllegalArgumentException("Not found $id id") }
+                .orElseThrow { IllegalArgumentException("Not found $id id") } // todo BAD REQUEST
     }
 
     fun save(usersTodos: UsersTodos): UsersTodos {

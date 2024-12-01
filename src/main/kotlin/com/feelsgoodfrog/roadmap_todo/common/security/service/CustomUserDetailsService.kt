@@ -12,6 +12,6 @@ class CustomUserDetailsService(
 ): UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
         return usersRepository.findById(username)
-            .orElseThrow { UsernameNotFoundException("$username not found") }
+            .orElseThrow { UsernameNotFoundException("$username not found") } // todo BAD REQUEST
     }
 }

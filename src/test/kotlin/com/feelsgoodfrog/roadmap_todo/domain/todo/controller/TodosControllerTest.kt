@@ -57,6 +57,19 @@ class TodosControllerTest(
     }
 
     @Test
+    fun getWithPaging() {
+        mockMvc.get("/todos?page=1&size=10&sort=id,desc") {
+            header(HttpHeaders.AUTHORIZATION, token)
+        }
+            .andExpect {
+                status { isOk() }
+                jsonPath("$.content.length()") { value(10) }
+                jsonPath("$.content[0].id") { value(21) }
+                jsonPath("$.totalElements") { value(31) }
+            }
+    }
+
+    @Test
     fun save() {
         val todo = TodosRequestDto(
             title = "save-todo",

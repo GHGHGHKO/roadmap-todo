@@ -9,7 +9,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 class SecurityConfig(
-    private val jwtProvider: JwtProvider
+    private val jwtProvider: JwtProvider,
+    private val customAuthenticationEntryPoint: CustomAuthenticationEntryPoint
 ) {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
@@ -24,6 +25,7 @@ class SecurityConfig(
             )
             .csrf { it.disable() }
             .formLogin { it.disable() }
+            .exceptionHandling { it.authenticationEntryPoint(customAuthenticationEntryPoint) }
             .build()
     }
 }

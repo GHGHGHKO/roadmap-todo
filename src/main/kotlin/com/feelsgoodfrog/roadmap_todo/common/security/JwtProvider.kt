@@ -66,7 +66,7 @@ class JwtProvider(
         return UsernamePasswordAuthenticationToken(userDetails, userDetails.password, userDetails.authorities)
     }
 
-    private fun userPrimaryKey(jwt: String): String {
+    fun userPrimaryKey(jwt: String): String {
         return parser()
             .parseSignedClaims(jwt)
             .payload

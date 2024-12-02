@@ -3,6 +3,7 @@ package com.feelsgoodfrog.roadmap_todo.common.advice
 import com.feelsgoodfrog.roadmap_todo.common.dto.AdviceResponseDto
 import com.feelsgoodfrog.roadmap_todo.common.exception.UserExistsException
 import com.feelsgoodfrog.roadmap_todo.common.exception.UserNotFoundException
+import io.github.resilience4j.ratelimiter.RequestNotPermitted
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -49,5 +50,19 @@ class GlobalExceptionAdvice {
                     )
                 }
             )
+    }
+
+    @ExceptionHandler(value = [RequestNotPermitted::class])
+    @ResponseBody
+    fun reslience4jRequestNotPermitted(
+        e: RequestNotPermitted
+    ): ResponseEntity<AdviceResponseDto> {
+        return ResponseEntity
+            .status(HttpStatus.TOO_MANY_REQUESTS)
+            .body(e.message?.let {
+                AdviceResponseDto(
+                    message = it
+                )
+            })
     }
 }

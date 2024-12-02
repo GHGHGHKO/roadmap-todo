@@ -1,0 +1,7 @@
+resilience4j:
+  ratelimiter:
+    instances:
+      todos-get:
+        limit-refresh-period: 20s
+        limit-for-period: 5
+        timeout-duration: 2s

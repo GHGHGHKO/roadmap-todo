@@ -4,6 +4,7 @@ import com.feelsgoodfrog.roadmap_todo.common.extensions.getCurrentUsername
 import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosRequestDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.dto.TodosResponseDto
 import com.feelsgoodfrog.roadmap_todo.domain.todo.service.TodosService
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter
 import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -24,6 +25,7 @@ class TodosController(
 ) {
 
     @GetMapping
+    @RateLimiter(name = "todos-get")
     fun get(
         pageable: Pageable
     ): ResponseEntity<Page<TodosResponseDto>> {

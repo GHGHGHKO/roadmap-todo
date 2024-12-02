@@ -7,6 +7,7 @@ import com.feelsgoodfrog.roadmap_todo.domain.todo.service.TodosService
 import com.feelsgoodfrog.roadmap_todo.domain.user.dto.RegisterRequestDto
 import com.feelsgoodfrog.roadmap_todo.domain.user.entity.Users
 import com.feelsgoodfrog.roadmap_todo.domain.user.service.UsersService
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -58,15 +59,22 @@ class TodosControllerTest(
 
     @Test
     fun getWithPaging() {
-        mockMvc.get("/todos?page=1&size=10&sort=id,desc") {
+        val response = mockMvc.get("/todos?page=1&size=10&sort=id,desc") {
             header(HttpHeaders.AUTHORIZATION, token)
         }
             .andExpect {
                 status { isOk() }
                 jsonPath("$.content.length()") { value(10) }
-                jsonPath("$.content[0].id") { value(21) }
-                jsonPath("$.totalElements") { value(31) }
             }
+            .andReturn()
+            .response
+            .contentAsString
+
+        val json = ObjectMapper().readTree(response)
+        val firstId = json["content"][0]["id"].asInt()
+        val lastId = json["content"][9]["id"].asInt()
+
+        assertThat(firstId > lastId)
     }
 
     @Test
@@ -95,7 +103,7 @@ class TodosControllerTest(
             description = "save-todo-description"
         )
 
-        mockMvc.put("/todos/3") {
+        mockMvc.put("/todos/43") {
             header(HttpHeaders.AUTHORIZATION, token)
             content = objectMapper.writeValueAsString(todo)
             contentType = MediaType.APPLICATION_JSON

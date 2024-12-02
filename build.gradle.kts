@@ -26,10 +26,12 @@ extra["springCloudVersion"] = "2024.0.0-RC1"
 val kotlinLoggingJvm = "7.0.0"
 val jwt = "0.12.6"
 val p6spy = "1.10.0"
+val jsoup = "1.18.2"
 
 dependencies {
 	implementation("io.jsonwebtoken:jjwt-api:${jwt}")
 	implementation("io.github.oshai:kotlin-logging-jvm:${kotlinLoggingJvm}")
+	implementation("org.jsoup:jsoup:$jsoup")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("org.springframework.boot:spring-boot-starter-security")

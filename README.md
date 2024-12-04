@@ -1,5 +1,7 @@
 # roadmap-weather
-Inspired by https://roadmap.sh/projects/todo-list-api
+Inspired by https://roadmap.sh/projects/todo-list-api  
+Submitted
+https://roadmap.sh/projects/todo-list-api/solutions?u=671f97b531d65c235d3ca1bc
 
 ## spec
 java 21, kotlin, springboot 3.4.0, resilience4j   

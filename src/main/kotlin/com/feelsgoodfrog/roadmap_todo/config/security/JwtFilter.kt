@@ -15,11 +15,11 @@ class JwtFilter(
         val jwt: String? = jwtProvider.resolveToken(p0 as HttpServletRequest)
 
         if (jwt != null && jwtProvider.validateToken(jwt)) {
-            val authentication = jwtProvider.userAuthentication(jwt)
+            val removedBearerJwt = jwtProvider.removeBearerPrefix(jwt)
+            val authentication = jwtProvider.userAuthentication(removedBearerJwt)
             SecurityContextHolder.getContext().authentication = authentication
         }
 
         p2?.doFilter(p0, p1)
     }
-
 }

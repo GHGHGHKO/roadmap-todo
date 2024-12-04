@@ -46,14 +46,16 @@ class JwtProvider(
 
     fun validateToken(jwt: String): Boolean {
         return try {
-            val isVerify = verify(jwt)
+            val isBearer = isBearer(jwt)
+            val removedBearerJwt = removeBearerPrefix(jwt)
+            val isVerify = verify(removedBearerJwt)
             val isJwtExpired = parser()
-                .parseSignedClaims(jwt)
+                .parseSignedClaims(removedBearerJwt)
                 .payload
                 .expiration
                 .after(Date())
 
-            isVerify && isJwtExpired
+            isVerify && isJwtExpired && isBearer
         } catch (e: Exception) {
             false
         }
@@ -78,6 +80,14 @@ class JwtProvider(
         return Jwts.parser()
             .verifyWith(publicKey)
             .build()
+    }
+
+    private fun isBearer(jwt: String): Boolean {
+        return jwt.startsWith("Bearer ")
+    }
+
+    fun removeBearerPrefix(jwt: String): String {
+        return jwt.substring(7)
     }
 
     companion object {

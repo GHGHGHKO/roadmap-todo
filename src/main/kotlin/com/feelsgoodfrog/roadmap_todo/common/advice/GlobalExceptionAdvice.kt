@@ -54,7 +54,7 @@ class GlobalExceptionAdvice {
 
     @ExceptionHandler(value = [RequestNotPermitted::class])
     @ResponseBody
-    fun reslience4jRequestNotPermitted(
+    fun resilience4jRequestNotPermitted(
         e: RequestNotPermitted
     ): ResponseEntity<AdviceResponseDto> {
         return ResponseEntity

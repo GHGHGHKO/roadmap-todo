@@ -1,0 +1,7 @@
+services:
+  roadmap-todo:
+    container_name: roadmap-todo-api
+    image: gudrb963/roadmap-todo:latest
+    platform: linux/arm64
+    ports:
+      - "8081:8080"

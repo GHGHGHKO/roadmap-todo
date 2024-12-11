@@ -1,6 +1,7 @@
 plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
+	id("com.google.cloud.tools.jib") version "3.4.4"
 	id("org.springframework.boot") version "3.4.0-SNAPSHOT"
 	id("io.spring.dependency-management") version "1.1.6"
 	kotlin("plugin.jpa") version "1.9.25"
@@ -8,6 +9,19 @@ plugins {
 
 group = "com.feelsgoodfrog"
 version = "0.0.1-SNAPSHOT"
+
+jib {
+	from {
+		image = "openjdk:21-jdk-slim"
+	}
+	to {
+		image = "gudrb963/roadmap-todo"
+		tags = setOf("latest")
+	}
+	container {
+		jvmFlags = listOf("-XX:InitialRAMPercentage=75", "-XX:MaxRAMPercentage=85")
+	}
+}
 
 java {
 	toolchain {

@@ -13,6 +13,12 @@ version = "0.0.1-SNAPSHOT"
 jib {
 	from {
 		image = "openjdk:21-jdk-slim"
+		platforms {
+			platform {
+				os = "linux"
+				architecture = "arm64"
+			}
+		}
 	}
 	to {
 		image = "gudrb963/roadmap-todo"
@@ -41,6 +47,7 @@ val kotlinLoggingJvm = "7.0.0"
 val jwt = "0.12.6"
 val p6spy = "1.10.0"
 val jsoup = "1.18.2"
+val swagger = "2.7.0"
 
 dependencies {
 	implementation("io.jsonwebtoken:jjwt-api:${jwt}")
@@ -52,6 +59,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$swagger")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:${p6spy}")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")

@@ -4,7 +4,7 @@ Submitted
 https://roadmap.sh/projects/todo-list-api/solutions?u=671f97b531d65c235d3ca1bc
 
 ## spec
-java 21, kotlin, springboot 3.4.0, resilience4j   
+java 21, kotlin, springboot 3.4.0, resilience4j, swagger   
 
 1. [How to build](#how-to-build)
 2. [CRUD](#crud)
@@ -17,6 +17,8 @@ java 21, kotlin, springboot 3.4.0, resilience4j
 ```
 
 # CRUD
+
+### [Swagger Link](https://roadmap-todo.mooo.com/swagger-ui/index.html)
 
 ## Create
 <details>

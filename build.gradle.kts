@@ -12,7 +12,7 @@ version = "0.0.1-SNAPSHOT"
 
 jib {
 	from {
-		image = "openjdk:21-jdk-slim"
+		image = "arm64v8/eclipse-temurin:25-jdk-alpine-3.23"
 		platforms {
 			platform {
 				os = "linux"
